@@ -10,8 +10,8 @@ function setCardType(type) {
     mastercard: ["#DF6F29", "#C69347"],
     default: ["black", "gray"]
   }
-  ccBgColor01.setAttribute("fill", colors[type][1])
-  ccBgColor02.setAttribute("fill", colors[type][2])
+  ccBgColor01.setAttribute("fill", colors[type][0])
+  ccBgColor02.setAttribute("fill", colors[type][1])
   ccLogo.setAttribute("src", `cc-${type}.svg`)
 }
 
@@ -57,7 +57,7 @@ const cardNumberPattern = {
     },
     {
       mask: "0000 0000 0000 0000",
-      type: "default"
+      cardtype: "default"
     }
   ],
   dispatch: function (appended, dynamicMasked) {
@@ -65,7 +65,7 @@ const cardNumberPattern = {
     const foudMask = dynamicMasked.compiledMasks.find(function (item) {
       return number.match(item.regex)
     })
-    console.log(foudMask)
+
     return foudMask
   }
 }
@@ -103,6 +103,7 @@ cardNumberMasked.on("accept", () => {
 
 function updateCardNumber(number) {
   const ccNumber = document.querySelector(".cc-number")
+
   ccNumber.innerText = number.length === 0 ? "1234 5678 9012 3456" : number
 }
 
